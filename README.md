@@ -23,3 +23,6 @@ OpenBid is an online auction platform where users can list items for sale and pl
    - Admins can approve or reject auction listings.
    - Suspicious bids or users can be removed.
    - Admins can monitor ongoing auctions and bid history.
+
+## Figma Wireframe
+https://www.figma.com/design/znRHRHxCUCTA42Pjqsmur1/Web-Programming-2?node-id=0-1&t=mqjsKbYTSO8GW2i5-1
