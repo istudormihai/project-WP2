@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | OpenBid</title>
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+</head>
+<body>
+
+<header>
+  <div class="logo">OpenBid</div>
+  <nav>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/about}">About</a>
+    <a th:href="@{/contact}">Contact</a>
+    <a th:href="@{/sell}">Sell</a>
+    <a th:href="@{/login}">Login</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Welcome to OpenBid!</h1>
+  <p>Buy and sell items easily and securely.</p>
+  <a href="#" class="btn-primary">Start Selling</a>
+</section>
+
+<footer>
+  © 2025 OpenBid. All rights reserved.
+</footer>
+
+</body>
+</html>
