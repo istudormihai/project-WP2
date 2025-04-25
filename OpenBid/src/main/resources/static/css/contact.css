@@ -1,4 +1,7 @@
-/* General Reset */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -20,11 +23,6 @@ header {
     align-items: center;
     padding: 15px 30px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    position: fixed; /* fixăm header-ul sus */
-    top: 0;
-    left: 0;
-    width: 97%;
-    z-index: 1000; /* să stea deasupra celorlalte elemente */
 }
 
 
@@ -55,6 +53,7 @@ footer {
     color: white;
     text-align: center;
     padding: 15px;
+    position: fixed;
     bottom: 0;
     width: 100%;
     font-size: 14px;
