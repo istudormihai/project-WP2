@@ -48,7 +48,6 @@ nav a:hover {
 }
 
 .login-card {
-    flex: 1;
     max-width: 400px;
     margin: 120px auto 60px;
     background-color: white;
@@ -56,6 +55,18 @@ nav a:hover {
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     text-align: center;
+}
+
+.login-card .signup {
+    margin-top: 15px;
+    font-size: 14px;
+
+}
+
+.login-card .signup a {
+    color: #2465ff;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .login-card h2 {
@@ -90,19 +101,8 @@ nav a:hover {
     background-color: #194cd6;
 }
 
-.login-card .register-link {
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.login-card .register-link a {
-    color: #2465ff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 footer {
-    margin-top: 80px;
+    margin-top: auto;
     padding: 20px;
     text-align: center;
     background-color: #1f2937;

@@ -48,9 +48,9 @@ nav a:hover {
 }
 
 .register-card {
-    flex: 1;
     max-width: 400px;
-    margin: 120px auto 60px;
+    width: 90%;
+    margin: 140px auto 20px;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
@@ -102,7 +102,7 @@ nav a:hover {
 }
 
 footer {
-    margin-top: 80px;
+    margin-top: auto;
     padding: 20px;
     text-align: center;
     background-color: #1f2937;
