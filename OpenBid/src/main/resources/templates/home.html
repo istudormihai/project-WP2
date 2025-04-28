@@ -10,7 +10,7 @@
 
 <header>
   <div class="logo">OpenBid</div>
-  <nav>
+  <nav class="nav-links">
     <a th:href="@{/}">Home</a>
     <a th:href="@{/about}">About</a>
     <a th:href="@{/contact}">Contact</a>
@@ -22,7 +22,58 @@
 <section class="hero">
   <h1>Welcome to OpenBid!</h1>
   <p>Buy and sell items easily and securely.</p>
-  <a href="#" class="btn-primary">Start Selling</a>
+  <a th:href="@{/sell}" class="btn-primary">Start Selling</a>
+</section>
+
+<section class="items-grid">
+  <div class="item-card">
+    <img src="https://placehold.co/300x200" alt="Item Image">
+    <div class="item-info">
+      <h3>ITEM</h3>
+      <p>$PRICE</p>
+      <button>Bid Now</button>
+    </div>
+  </div>
+  <div class="item-card">
+    <img src="https://placehold.co/300x200" alt="Item Image">
+    <div class="item-info">
+      <h3>ITEM</h3>
+      <p>$PRICE</p>
+      <button>Bid Now</button>
+    </div>
+  </div>
+  <div class="item-card">
+    <img src="https://placehold.co/300x200" alt="Item Image">
+    <div class="item-info">
+      <h3>ITEM</h3>
+      <p>$450.00</p>
+      <button>Bid Now</button>
+    </div>
+  </div>
+  <div class="item-card">
+    <img src="https://placehold.co/300x200" alt="Item Image">
+    <div class="item-info">
+      <h3>ITEM</h3>
+      <p>$75.00</p>
+      <button>Bid Now</button>
+    </div>
+  </div>
+  <div class="item-card">
+    <img src="https://placehold.co/300x200" alt="Item Image">
+    <div class="item-info">
+      <h3>ITEM</h3>
+      <p>$300.00</p>
+      <button>Bid Now</button>
+    </div>
+  </div>
+  <div class="item-card">
+    <img src="https://placehold.co/300x200" alt="Item Image">
+    <div class="item-info">
+      <h3>ITEM</h3>
+      <p>$5,000.00</p>
+      <button>Bid Now</button>
+    </div>
+  </div>
 </section>
 
 <footer>

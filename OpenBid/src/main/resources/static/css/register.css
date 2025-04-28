@@ -5,16 +5,25 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f1f3f6;
+    background-color: #f4f6f8;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
     background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .logo {
@@ -39,8 +48,9 @@ nav a:hover {
 }
 
 .register-card {
+    flex: 1;
     max-width: 400px;
-    margin: 100px auto;
+    margin: 120px auto 60px;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
@@ -49,6 +59,8 @@ nav a:hover {
 }
 
 .register-card h2 {
+    font-size: 1.8rem;
+    color: #1f2937;
     margin-bottom: 25px;
 }
 
@@ -57,7 +69,7 @@ nav a:hover {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 14px;
 }
 
@@ -67,7 +79,7 @@ nav a:hover {
     background-color: #2465ff;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -80,7 +92,7 @@ nav a:hover {
 
 .register-card .login-link {
     margin-top: 15px;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .register-card .login-link a {
@@ -90,12 +102,10 @@ nav a:hover {
 }
 
 footer {
-    background-color: #1d2533;
-    color: white;
+    margin-top: 80px;
+    padding: 20px;
     text-align: center;
-    padding: 15px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    background-color: #1f2937;
+    color: white;
     font-size: 14px;
 }
