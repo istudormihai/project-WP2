@@ -15,8 +15,8 @@ public class Item {
     private Double price;
     private String category;
     private Date date;
-    private User bidder;
-    private User owner;
+    private AppUser bidder;
+    private AppUser owner;
     private String image;
     private String description;
 }
