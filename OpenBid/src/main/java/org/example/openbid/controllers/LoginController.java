@@ -29,18 +29,11 @@ public class LoginController {
         AppUser user = appUserService.authenticateUser(email, password);
         if (user != null) {
             session.setAttribute("user", user);
-            return "redirect:/?loginSuccess=true";  // <--- Add query param
+            return "redirect:/?loginSuccess=true";
         } else {
             model.addAttribute("error", "Invalid email or password.");
             return "login";
         }
     }
-
-
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate();
-//        return "redirect:/login";
-//    }
 
 }

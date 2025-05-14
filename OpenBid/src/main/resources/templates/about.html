@@ -10,12 +10,18 @@
 
 <header>
   <div class="logo">OpenBid</div>
-  <nav>
+  <nav class="nav-links">
     <a th:href="@{/}">Home</a>
     <a th:href="@{/about}">About</a>
     <a th:href="@{/contact}">Contact</a>
     <a th:href="@{/sell}">Sell</a>
-    <a th:href="@{/login}">Login</a>
+
+    <span th:if="${session.user != null}">
+      <a th:text="${session.user.username}"></a>
+      <a th:href="@{/logout}">Logout</a>
+    </span>
+
+    <a th:if="${session.user == null}" th:href="@{/login}">Login</a>
   </nav>
 </header>
 

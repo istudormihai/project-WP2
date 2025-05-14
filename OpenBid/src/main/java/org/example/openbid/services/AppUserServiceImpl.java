@@ -1,9 +1,12 @@
 package org.example.openbid.services;
 
 import org.example.openbid.domain.AppUser;
+import org.example.openbid.domain.Role;
 import org.example.openbid.repositories.AppUserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
@@ -26,8 +29,10 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUser registerUser(AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Set.of(Role.ROLE_USER));
         return appUserRepository.save(user);
     }
+
 
     @Override
     public boolean emailExists(String email) {

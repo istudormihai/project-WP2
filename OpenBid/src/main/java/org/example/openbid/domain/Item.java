@@ -1,23 +1,25 @@
 package org.example.openbid.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
-
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int itemId;
     private String name;
-    private Double price;
-    private String category;
-    private Date date;
-    private AppUser bidder;
-    private AppUser owner;
-    private String image;
     private String description;
+    private Double startingBid; // initial price
+
 }
 
