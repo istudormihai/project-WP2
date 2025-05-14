@@ -19,6 +19,11 @@ public class HomeController {
         return "contact";
     }
 
+    @GetMapping("/sell")
+    public String sell() {
+        return "sell";
+    }
+
     @GetMapping("/about")
     public String about() {
         return "about";
