@@ -2,13 +2,21 @@ package org.example.openbid.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.openbid.domain.AppUser;
+import org.example.openbid.domain.Item;
+import org.example.openbid.repositories.ItemRepository;
+import org.example.openbid.services.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
+    @Autowired
+    private ItemRepository itemRepository;
 
     @GetMapping("/")
     public String home() {
@@ -27,6 +35,31 @@ public class HomeController {
             return "redirect:/login";
         }
         return "sell";
+    }
+    @PostMapping("/sell")
+    public String postItem(
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("startingBid") Double startingBid,
+            @RequestParam("image") MultipartFile imageFile,
+            HttpSession session) throws IOException {
+
+        Item item = new Item();
+        item.setName(name);
+        item.setDescription(description);
+        item.setStartingBid(startingBid);
+
+        AppUser user = (AppUser) session.getAttribute("user");
+        if (user != null) {
+            item.setOwner(user);
+        }
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            item.setImage(imageFile.getBytes());
+        }
+
+        itemRepository.save(item);
+        return "redirect:/";
     }
 
 

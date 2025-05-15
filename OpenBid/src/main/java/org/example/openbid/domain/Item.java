@@ -1,9 +1,6 @@
 package org.example.openbid.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +16,16 @@ public class Item {
     private int itemId;
     private String name;
     private String description;
-    private Double startingBid; // initial price
+
+    @ManyToOne
+    @JoinColumn(name = "app_user_id")
+    private AppUser owner;
+
+    @Lob
+    @Column(name = "image", columnDefinition = "BLOB")
+    private byte[] image;
+    private Double startingBid;
+
 
 }
 
