@@ -41,7 +41,7 @@ public class ItemController {
                 model.addAttribute("winnerUsername", "Invalid User ID");
             }
         } else {
-            model.addAttribute("winnerUsername", null);
+            model.addAttribute("winnerUsername", "No Bidder");
         }
 
         return "item_details";
@@ -88,4 +88,5 @@ public class ItemController {
         itemRepository.delete(item);
         return "redirect:/panel";
     }
+
 }

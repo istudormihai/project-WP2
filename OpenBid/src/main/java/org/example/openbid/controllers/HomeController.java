@@ -3,6 +3,7 @@ package org.example.openbid.controllers;
 import jakarta.servlet.http.HttpSession;
 import org.example.openbid.domain.AppUser;
 import org.example.openbid.domain.Item;
+import org.example.openbid.repositories.AppUserRepository;
 import org.example.openbid.repositories.ItemRepository;
 import org.example.openbid.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,32 @@ import java.util.stream.Collectors;
 public class HomeController {
     @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private AppUserRepository appUserRepository;
 
     @GetMapping("/")
     public String home(Model model) {
         List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
+        LocalDateTime now = LocalDateTime.now();
+        items.forEach(item -> {
+            if (item.isActive() && item.getEndTime() != null && item.getEndTime().isBefore(now)) {
+                item.setActive(false);
+                itemRepository.save(item);
+            }
+            if (item.getWinner() != 0) {
+                try {
+                    int winnerId = item.getWinner();
+                    AppUser winner = appUserRepository.findById(winnerId)
+                            .orElse(null);
+                    model.addAttribute("winnerUsername", winner != null ? winner.getUsername() : "Unknown User");
+                } catch (NumberFormatException e) {
+                    model.addAttribute("winnerUsername", "Invalid User ID");
+                }
+            } else {
+                model.addAttribute("winnerUsername", "No Bidder");
+            }
+        });
         model.addAttribute("items", items);
         return "home";
     }
@@ -105,6 +128,13 @@ public class HomeController {
     public String panelPage(HttpSession session, Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
+        LocalDateTime now = LocalDateTime.now();
+        items.forEach(item -> {
+            if (item.isActive() && item.getEndTime() != null && item.getEndTime().isBefore(now)) {
+                item.setActive(false);
+                itemRepository.save(item);
+            }
+        });
         AppUser user = (AppUser) session.getAttribute("user");
         if (user != null && "admin".equals(user.getUsername())) {
             return "/panel";

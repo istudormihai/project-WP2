@@ -44,6 +44,8 @@
     <div class="item-info">
       <h3 th:text="${item.name}">Item Name</h3>
       <p th:text="'Current Bid: $' + ${item.startingBid}"></p>
+      <p th:if="${!item.isActive}" th:text="'Winner: ' + ${winnerUsername}"></p>
+      <p th:if="${item.isActive}" th:text="'Current Bidder: ' + ${winnerUsername}"></p>
       <p class="time-left" th:data-end-time="${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm:ss')}"
          th:text="'Time Left: ' + ${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm:ss')}">Time Left: Calculating...</p>
       <button th:onclick="'location.href=\'/item/' + ${item.itemId} + '\';'">Bid Now</button>
@@ -74,7 +76,9 @@
         if (bidButton) {
           bidButton.disabled = true;
           bidButton.textContent = 'Bidding Closed';
+
         }
+
         return;
       }
 
