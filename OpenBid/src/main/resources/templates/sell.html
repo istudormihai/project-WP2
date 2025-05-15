@@ -15,7 +15,9 @@
         <a th:href="@{/about}">About</a>
         <a th:href="@{/contact}">Contact</a>
         <a th:href="@{/sell}">Sell</a>
-
+    <span th:if="${session.user != null && session.user.username == 'admin'}">
+      <a th:href="@{/panel}">Panel</a>
+    </span>
     <span th:if="${session.user != null}">
       <a th:href="@{/profile}" th:text="${session.user.username}"></a>
       <a th:href="@{/logout}">Logout</a>

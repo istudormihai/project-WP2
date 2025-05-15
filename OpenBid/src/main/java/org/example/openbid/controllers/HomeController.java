@@ -1,6 +1,7 @@
 package org.example.openbid.controllers;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.openbid.domain.AppUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,16 @@ public class HomeController {
     public String profile() {
         return "profile";
     }
+
+    @GetMapping("/panel")
+    public String panelPage(HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if (user != null && "admin".equals(user.getUsername())) {
+            return "/panel";
+        }
+        return "redirect:/";
+    }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
