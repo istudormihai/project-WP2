@@ -29,6 +29,11 @@ public class HomeController {
         return "about";
     }
 
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // logs out the user
