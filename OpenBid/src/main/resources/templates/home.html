@@ -38,55 +38,17 @@
 </section>
 
 <section class="items-grid">
-  <div class="item-card">
-    <img src="https://placehold.co/300x200" alt="Item Image">
+  <div class="item-card" th:each="item : ${items}">
+    <img th:src="${item.itemId != null} ? '/image/' + ${item.itemId} : 'https://placehold.co/300x200'"
+         alt="Item Image" />
     <div class="item-info">
-      <h3>ITEM</h3>
-      <p>$PRICE</p>
-      <button>Bid Now</button>
-    </div>
-  </div>
-  <div class="item-card">
-    <img src="https://placehold.co/300x200" alt="Item Image">
-    <div class="item-info">
-      <h3>ITEM</h3>
-      <p>$PRICE</p>
-      <button>Bid Now</button>
-    </div>
-  </div>
-  <div class="item-card">
-    <img src="https://placehold.co/300x200" alt="Item Image">
-    <div class="item-info">
-      <h3>ITEM</h3>
-      <p>$450.00</p>
-      <button>Bid Now</button>
-    </div>
-  </div>
-  <div class="item-card">
-    <img src="https://placehold.co/300x200" alt="Item Image">
-    <div class="item-info">
-      <h3>ITEM</h3>
-      <p>$75.00</p>
-      <button>Bid Now</button>
-    </div>
-  </div>
-  <div class="item-card">
-    <img src="https://placehold.co/300x200" alt="Item Image">
-    <div class="item-info">
-      <h3>ITEM</h3>
-      <p>$300.00</p>
-      <button>Bid Now</button>
-    </div>
-  </div>
-  <div class="item-card">
-    <img src="https://placehold.co/300x200" alt="Item Image">
-    <div class="item-info">
-      <h3>ITEM</h3>
-      <p>$5,000.00</p>
-      <button>Bid Now</button>
+      <h3 th:text="${item.name}">Item Name</h3>
+      <p th:text="'Current Bid: $' + ${item.startingBid}"></p>
+      <button th:onclick="'location.href=\'/item/' + ${item.itemId} + '\';'">Bid Now</button>
     </div>
   </div>
 </section>
+
 
 <footer>
   © 2025 OpenBid. All rights reserved.
@@ -94,7 +56,3 @@
 
 </body>
 </html>
-
-<script th:if="${param.loginSuccess}" type="text/javascript">
-  alert("Login successful!");
-</script>

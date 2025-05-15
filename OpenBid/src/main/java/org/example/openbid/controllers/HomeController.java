@@ -6,11 +6,19 @@ import org.example.openbid.domain.Item;
 import org.example.openbid.repositories.ItemRepository;
 import org.example.openbid.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -19,9 +27,24 @@ public class HomeController {
     private ItemRepository itemRepository;
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
+        List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
         return "home";
     }
+
+    @GetMapping("/image/{id}")
+    public ResponseEntity<byte[]> getImage(@PathVariable Integer id) {
+        Item item = itemRepository.findById(id).orElse(null);
+        if (item != null && item.getImage() != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG); // Adjust MIME type as needed
+            return new ResponseEntity<>(item.getImage(), headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @GetMapping("/contact")
     public String contact() {
