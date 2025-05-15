@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | OpenBid</title>
-    <link rel="stylesheet" th:href="@{/css/panel.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_details.css}" />
 </head>
 <body>
 
@@ -32,29 +32,27 @@
 
 
 <section class="hero">
-    <h1>Admin Panel</h1>
+    <h1 th:text="${item.name}">Item Name</h1>
 </section>
 
 <section class="items-grid">
-    <div class="item-card" th:each="item : ${items}" th:if="${!item.isApproved}">
+    <div class="item-card">
         <img th:src="${item.itemId != null} ? '/image/' + ${item.itemId} : 'https://placehold.co/300x200'"
              alt="Item Image" />
         <div class="item-info">
-            <h3 th:text="${item.name}">Item Name</h3>
-            <p th:text="'Description: ' + ${item.description}"></p>
-            <p th:text="'Current Bid: $' + ${item.startingBid}"></p>
-            <p class="time-left" th:data-end-time="${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm:ss')}"
-               th:text="'Time Left: ' + ${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm:ss')}">Time Left: Calculating...</p>
-            <form th:action="@{/item/{id}/toggle-approval(id=${item.itemId})}" method="post">
-                <button type="submit" class="admin-button" style="background-color: limegreen">
-                    <span>Approve</span>
-                </button>
+            <h2 th:text="${item.description}">Description: N/A</h2>
+            <h3 th:text="'Current Bid: $' + ${item.startingBid}">Current Bid: N/A</h3>
+            <h3 th:if="${!item.isActive}" th:text="'Winner: ' + ${winnerUsername}"></h3>
+            <h3 th:if="${item.isActive}" th:text="'Current Bidder: ' + ${winnerUsername}"></h3>
+            <h3 class="time-left"
+               th:data-end-time="${item.endTime != null} ? ${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm:ss')} : ''"
+               th:text="'Time Left: ' + ${item.endTime != null} ? ${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm:ss')} : 'N/A'">Time Left: Calculating...</h3>
+            <form th:action="@{/item/{id}(id=${item.itemId})}" method="post" th:if="${item.isActive}">
+                <h3><label for="bid_amount">Your Bid:</label>
+                <input type="number" id="bid_amount" name="bidAmount" min="0" step="0.01" required /></h3>
+                <p><button type="submit" class="bid-button">Place Bid</button></p>
             </form>
-            <form th:action="@{/item/{id}/delete(id=${item.itemId})}" method="post">
-                <button type="submit" class="admin-button" style="background-color: darkred">
-                    <span>Delete</span>
-                </button>
-            </form>
+            <p th:if="${!item.isActive}">Bidding is not available for this item.</p>
         </div>
     </div>
 </section>
@@ -75,8 +73,14 @@
             const endTime = new Date(endTimeStr);
             const timeDiff = endTime - now;
 
+            const bidButton = element.closest('.item-info').querySelector('button');
+
             if (timeDiff <= 0) {
                 element.textContent = 'Time Left: Bidding Ended';
+                if (bidButton) {
+                    bidButton.disabled = true;
+                    bidButton.textContent = 'Bidding Closed';
+                }
                 return;
             }
 
@@ -91,6 +95,10 @@
             timeString += `${minutes}m ${seconds}s`;
 
             element.textContent = timeString;
+            if (bidButton) {
+                bidButton.disabled = false;
+                bidButton.textContent = 'Bid Now';
+            }
         });
     }
     setInterval(updateCountdown, 1000);

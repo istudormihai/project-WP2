@@ -102,7 +102,9 @@ public class HomeController {
     }
 
     @GetMapping("/panel")
-    public String panelPage(HttpSession session) {
+    public String panelPage(HttpSession session, Model model) {
+        List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
         AppUser user = (AppUser) session.getAttribute("user");
         if (user != null && "admin".equals(user.getUsername())) {
             return "/panel";

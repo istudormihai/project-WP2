@@ -38,7 +38,7 @@
 </section>
 
 <section class="items-grid">
-  <div class="item-card" th:each="item : ${items}">
+  <div class="item-card" th:each="item : ${items}" th:if="${item.isApproved}">
     <img th:src="${item.itemId != null} ? '/image/' + ${item.itemId} : 'https://placehold.co/300x200'"
          alt="Item Image" />
     <div class="item-info">
