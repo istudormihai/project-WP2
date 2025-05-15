@@ -20,9 +20,14 @@ public class HomeController {
     }
 
     @GetMapping("/sell")
-    public String sell() {
+    public String sellPage(HttpSession session) {
+        Object user = session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
         return "sell";
     }
+
 
     @GetMapping("/about")
     public String about() {
