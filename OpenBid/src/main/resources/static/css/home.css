@@ -148,3 +148,13 @@ footer {
     color: white;
     font-size: 14px;
 }
+
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+.item-info button:hover:disabled {
+    background-color: #8e8e8e;
+}

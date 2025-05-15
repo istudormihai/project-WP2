@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,12 +66,16 @@ public class HomeController {
             @RequestParam("description") String description,
             @RequestParam("startingBid") Double startingBid,
             @RequestParam("image") MultipartFile imageFile,
+            @RequestParam("endTime") LocalDateTime endTime,
             HttpSession session) throws IOException {
 
         Item item = new Item();
         item.setName(name);
         item.setDescription(description);
         item.setStartingBid(startingBid);
+        item.setEndTime(endTime);
+        item.setActive(true);
+        item.setApproved(false);
 
         AppUser user = (AppUser) session.getAttribute("user");
         if (user != null) {
