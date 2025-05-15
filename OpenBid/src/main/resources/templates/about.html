@@ -20,7 +20,7 @@
       <a th:href="@{/panel}">Panel</a>
     </span>
     <span th:if="${session.user != null}">
-      <a th:href="@{/profile}" th:text="${session.user.username}"></a>
+      <a th:href="@{/profile}" th:text="Profile"></a>
       <a th:href="@{/logout}">Logout</a>
     </span>
 
