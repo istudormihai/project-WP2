@@ -82,7 +82,7 @@ public class ItemController {
         return "redirect:/panel";
     }
     @PostMapping("/item/{id}/delete")
-    public String toggleApproval(@PathVariable("id") int id, HttpSession session) {
+    public String delete(@PathVariable("id") int id, HttpSession session) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid item ID: " + id));
         itemRepository.delete(item);
