@@ -18,9 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -119,10 +117,6 @@ public class HomeController {
         return "about";
     }
 
-    @GetMapping("/profile")
-    public String profile() {
-        return "profile";
-    }
 
     @GetMapping("/panel")
     public String panelPage(HttpSession session, Model model) {
@@ -141,7 +135,6 @@ public class HomeController {
         }
         return "redirect:/";
     }
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

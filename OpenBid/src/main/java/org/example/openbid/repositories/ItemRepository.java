@@ -10,4 +10,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 
     List<Item> findByOwner(AppUser user);
+    List<Item> findByWinner(int winnerId);
+
 }

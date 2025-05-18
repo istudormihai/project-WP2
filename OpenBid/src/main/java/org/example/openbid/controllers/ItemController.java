@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class ItemController {
@@ -88,5 +89,22 @@ public class ItemController {
         itemRepository.delete(item);
         return "redirect:/panel";
     }
+
+    @GetMapping("/profile")
+    public String userProfile(HttpSession session, Model model) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        List<Item> userWinningBids = itemRepository.findByWinner(user.getId());
+        List<Item> userListedItems = itemRepository.findByOwner(user);
+
+        model.addAttribute("userWinningBids", userWinningBids);
+        model.addAttribute("userListedItems", userListedItems);
+
+        return "profile"; // Not session.userWinningBids etc!
+    }
+
 
 }
