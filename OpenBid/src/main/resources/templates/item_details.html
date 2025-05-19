@@ -50,6 +50,9 @@
             <form th:action="@{/item/{id}(id=${item.itemId})}" method="post" th:if="${item.isActive}">
                 <h3><label for="bid_amount">Your Bid:</label>
                 <input type="number" id="bid_amount" name="bidAmount" min="0" step="0.01" required /></h3>
+                <div th:if="${error}" style="color: red; font-weight: bold; margin-top: 10px;">
+                    <p th:text="${error}"></p>
+                </div>
                 <p><button type="submit" class="bid-button">Place Bid</button></p>
             </form>
             <p th:if="${!item.isActive}">Bidding is not available for this item.</p>

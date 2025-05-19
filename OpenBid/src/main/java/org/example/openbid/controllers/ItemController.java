@@ -44,32 +44,44 @@ public class ItemController {
         } else {
             model.addAttribute("winnerUsername", "No Bidder");
         }
-
         return "item_details";
     }
 
 
     @PostMapping("/item/{id}")
-    public String placeBid(@PathVariable("id") int id, @RequestParam("bidAmount") double bidAmount,
+    public String placeBid(@PathVariable("id") int id,
+                           @RequestParam("bidAmount") double bidAmount,
                            HttpSession session, Model model) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid item ID: " + id));
-        AppUser user = (AppUser) session.getAttribute("user");
 
-        if (bidAmount < item.getStartingBid()) {
+        if (bidAmount <= item.getStartingBid()) {
             model.addAttribute("item", item);
             model.addAttribute("error", "Your bid must be higher than the current bid of $" + item.getStartingBid());
+
+            String winnerUsername = "No Bidder";
+            if (item.getWinner() != 0) {
+                AppUser winner = appUserRepository.findById(item.getWinner()).orElse(null);
+                winnerUsername = (winner != null) ? winner.getUsername() : "Unknown User";
+            }
+            model.addAttribute("winnerUsername", winnerUsername);
+
             return "item_details";
         }
 
-        // Update bid
+        // Bid valid
         item.setStartingBid(bidAmount);
         item.setWinner(user.getId());
-
         itemRepository.save(item);
 
         return "redirect:/item/" + id;
     }
+
 
     @PostMapping("/item/{id}/toggle-approval")
     public String toggleApproval(@PathVariable("id") int id, HttpSession session, Model model) {

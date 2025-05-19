@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -32,28 +34,30 @@ public class HomeController {
     public String home(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
+
         LocalDateTime now = LocalDateTime.now();
+        Map<Integer, String> winnerUsernames = new HashMap<>();
+
         items.forEach(item -> {
             if (item.isActive() && item.getEndTime() != null && item.getEndTime().isBefore(now)) {
                 item.setActive(false);
                 itemRepository.save(item);
             }
+
             if (item.getWinner() != 0) {
-                try {
-                    int winnerId = item.getWinner();
-                    AppUser winner = appUserRepository.findById(winnerId)
-                            .orElse(null);
-                    model.addAttribute("winnerUsername", winner != null ? winner.getUsername() : "Unknown User");
-                } catch (NumberFormatException e) {
-                    model.addAttribute("winnerUsername", "Invalid User ID");
-                }
+                int winnerId = item.getWinner();
+                AppUser winner = appUserRepository.findById(winnerId).orElse(null);
+                winnerUsernames.put(item.getItemId(), winner != null ? winner.getUsername() : "Unknown User");
             } else {
-                model.addAttribute("winnerUsername", "No Bidder");
+                winnerUsernames.put(item.getItemId(), "No Bidder");
             }
         });
-        model.addAttribute("items", items);
+
+        model.addAttribute("winnerUsernames", winnerUsernames);
+
         return "home";
     }
+
 
     @GetMapping("/image/{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable Integer id) {
